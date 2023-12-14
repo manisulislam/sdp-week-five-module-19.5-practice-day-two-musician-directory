@@ -12,5 +12,8 @@ class addAlbumModel(models.Model):
     ("5", "5"), 
     
 ) 
-    ratings=models.IntegerField(choices=rating_choices)
+    ratings=models.CharField(choices=rating_choices, max_length=1)
     musician=models.ForeignKey(musicianModel,on_delete=models.CASCADE)
+    
+    def __str__(self):
+        return self.AlbumName

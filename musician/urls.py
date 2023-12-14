@@ -6,4 +6,5 @@ urlpatterns=[
     path("profile/", views.profileView.as_view(), name="profile"),
     path("logOut", views.signOutView.as_view(), name="logOut"),
     path("addMusician/", views.addMusicianView.as_view(), name="addMusician"),
+    path("edit_musician/<int:id>/", views.editMusicianView.as_view(), name="edit_musician"),
 ]

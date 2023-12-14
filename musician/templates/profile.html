@@ -1,6 +1,51 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>this is profile page page</h1>
+<h1 class="text-center text-primary mt-5 mb-5">welcome to the profile page page</h1>
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Id</th>
+        <th scope="col">Musician Name</th>
+        <th scope="col">Email</th>
+        <th scope="col">Instrument Type</th>
+        <th scope="col">Album Name</th>
+        <th scope="col">Release date</th>
+        <th scope="col">Ratings</th>
+        <th scope="col">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+        
+        {% for item in data %}
+      <tr>
+        <th scope="row">{{ forloop.counter }}</th>
+        <td>
+          <a href="{% url 'edit_musician' item.musician.id %}" class="text-decoration-none text-dark">{{ item.musician.first_name }} {{ item.musician.last_name }}</a>
+          </td>
+        <td>{{ item.musician.email }}</td>
+        <td>{{ item.musician.instrument_type }}</td>
+        <td>{{ item.AlbumName }}</td>
+        <td>{{ item.release_date }}</td>
+        <td>{{ item.ratings }}</td>
+        <td>
+            <div class="d-flex justify-content-center align-items-center gap-2">
+                <div>
+                  <a href="{% url 'edit_album' item.id %}"> <button class="btn btn-outline-danger">Edit</button></a>
+                    
+                </div>
+                <div>
+                  <a href="{% url 'delete_album' item.id %}"><button class="btn btn-outline-danger"> Delete</button></a>
+                   
+                </div>
+            </div>
+        </td>
+        
+        
+        
 
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
 {% endblock %}

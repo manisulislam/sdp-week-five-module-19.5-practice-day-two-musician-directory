@@ -4,9 +4,13 @@ from django.shortcuts import render, redirect
 from django.views import View
 from .forms import RegistrationForm,musicianForm
 from django.contrib.auth.views import LoginView, LogoutView
+from django.views.generic import ListView
 from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
+from album.models import addAlbumModel
+from django.views.generic import UpdateView
+from .models import musicianModel
 # Create your views here.
 
 
@@ -42,11 +46,14 @@ class signOutView(LogoutView):
         return reverse_lazy('home')
 
 @method_decorator(login_required, name='dispatch')
-class profileView(View):
+class profileView(ListView):
     template_name="profile.html"
+    model=addAlbumModel
+    context_object_name='data'
     
-    def get(self, request):
-        return render(request, self.template_name)
+    
+    
+    
     
 
 @method_decorator(login_required, name='dispatch')
@@ -63,3 +70,12 @@ class addMusicianView(View):
             form.save()
             return redirect('profile')
         return render(request, self.template_name, {'form': form})
+    
+
+@method_decorator(login_required, name='dispatch')
+class editMusicianView(UpdateView):
+    model=musicianModel
+    form_class=musicianForm
+    template_name="addMusician.html"
+    success_url=reverse_lazy('profile')
+    pk_url_kwarg="id"
